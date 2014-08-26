@@ -1,8 +1,8 @@
-@extend('')
+@extend('_backeng.master')
 @section('content')
 <section class="content-header">
     <h1>Képfeltöltés</h1>
-    {{-- HTML::decode(Breadcrumbs::render('')) --}}
+    {{ HTML::decode(Breadcrumbs::render('admin.galeria.kep.upload')) }}
 </section>
 
 <section class="content">
@@ -13,19 +13,18 @@
 
             <div class="box box-solid">
                 <div class="box-body">
-                    {{Form::open(array('url' => URL::route('admin.galeria.kep.save'),'class'=>'form-horizontal form-ajax-upload','method'=>'POST'))}}
-
+                    {{Form::open(array('url' => URL::route('admin.galeria.kep.save'),'class'=>'form-horizontal','method'=>'POST','files'=>true))}}
 
                     {{Form::input('hidden','id',$gallery->id,array('class'=>'form-control'))}}
-                    {{Form::input('file','files','',array('class'=>'form-control input-upload hidden','multiple'))}}
-                    {{Form::button('Feltöltés',array('type'=>'submit','class'=>'btn btn-sm btn-divide btn-upload'))}}
+                    {{Form::input('file','images[]','',array('class'=>'form-control input-upload hidden','multiple'))}}
+                    
+                    {{Form::button('Fájlok kiválasztása',array('type'=>'button','class'=>'btn btn-sm btn-default btn-upload'))}}
+                    {{Form::button('Feltöltés',array('type'=>'submit','class'=>'btn btn-sm btn-divide'))}}
+
+                            
 
                     {{Form::close()}}
                 </div>
-            </div>
-
-            <div class="progress">
-                <div class="progress-bar progress-bar-divide" style="width: 0%"></div>
             </div>
 
             <div class="box box-solid box-divide">

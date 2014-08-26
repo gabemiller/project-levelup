@@ -124,6 +124,11 @@ Breadcrumbs::register('admin.galeria.edit', function($breadcrumbs) {
     $breadcrumbs->push('Galéria módosítása', route('admin.galeria.edit'));
 });
 
+Breadcrumbs::register('admin.galeria.kep.upload', function($breadcrumbs) {
+    $breadcrumbs->parent('admin.galeria.index');
+    $breadcrumbs->push('Képfeltöltés', route('admin.galeria.kep.upload'));
+});
+
 /**
  * Page
  */

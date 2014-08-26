@@ -77,7 +77,7 @@ class GalleryController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('A galéria feltöltése nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('A galéria feltöltése nem sikerült!');
@@ -143,7 +143,7 @@ class GalleryController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('A galéria módosítása nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('A galéria módosítása nem sikerült!');
@@ -162,10 +162,10 @@ class GalleryController extends \BaseController {
         try {
 
             $gallery = Gallery::find($id);
-            
-            Article::where('gallery_id','=',$gallery->id)->update(array('gallery_id'=>0));
-            Event::where('gallery_id','=',$gallery->id)->update(array('gallery_id'=>0));
-            Page::where('gallery_id','=',$gallery->id)->update(array('gallery_id'=>0));
+
+            Article::where('gallery_id', '=', $gallery->id)->update(array('gallery_id' => 0));
+            Event::where('gallery_id', '=', $gallery->id)->update(array('gallery_id' => 0));
+            Page::where('gallery_id', '=', $gallery->id)->update(array('gallery_id' => 0));
 
             if ($gallery->delete()) {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú galéria törlése sikerült!', 'status' => true]);
@@ -173,7 +173,7 @@ class GalleryController extends \BaseController {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú galéria törlése nem sikerült!', 'status' => false]);
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Response::json(['message' => $e->getMessage(), 'status' => false]);
             } else {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú galéria törlése nem sikerült!', 'status' => false]);
@@ -194,51 +194,131 @@ class GalleryController extends \BaseController {
     /**
      * 
      */
-    public function postPicture() {
+    /* public function postPicture() {
 
+
+      try {
+
+      $img = Image::make(Input::file('files'));
+
+      $gallery = Gallery::find(Input::get('id'));
+
+      $path = '/img/gallery/' . $gallery->id;
+
+      $thumbPath = $path . '/thumb';
+
+      if (!File::exists(public_path() . $path)) {
+      File::makeDirectory(public_path() . $path, 777, true);
+      }
+
+      if (!File::exists(public_path() . $thumbPath)) {
+      File::makeDirectory(public_path() . $thumbPath, 777, true);
+      }
+
+      $extension = Input::file('files')->getClientOriginalExtension();
+
+      $fileName = microtime(true) . '-' . Str::slug(Str::words($gallery->name, 3, '')) . '.' . $extension;
+
+      $img->save(public_path() . $path . '/' . $fileName)->fit(250)->save(public_path() . $thumbPath . '/' . $fileName);
+
+
+      if (File::exists(public_path() . $path . '/' . $fileName) && File::exists(public_path() . $thumbPath . '/' . $fileName)) {
+      $picture = new Picture();
+
+      $picture->gallery_id = $gallery->id;
+      $picture->thumbnail_path = $thumbPath . '/' . $fileName;
+      $picture->picture_path = $path . '/' . $fileName;
+      $picture->name = $fileName;
+
+      if ($picture->save()) {
+      $gallery->touch();
+      return Response::json(['file' => ['url' => $picture->picture_path, 'thumbnailUrl' => $picture->thumbnail_path, 'name' => $picture->name, 'deleteUrl' => '/admin/galeria/kep/' . $picture->id . '/delete']]);
+      } else {
+      return Response::json(['file' => ['url' => 'http://placehold.it/250/f2dede/a94442&text=Hiba!', 'thumbnailUrl' => 'http://placehold.it/100/f2dede/a94442&text=Hiba!', 'name' => 'Hiba történt!', 'deleteUrl' => null]]);
+      }
+      }
+      } catch (Exception $e) {
+      return Response::json(['file' => ['url' => 'http://placehold.it/250/f2dede/a94442&text=Hiba!', 'thumbnailUrl' => 'http://placehold.it/250/f2dede/a94442&text=Hiba!', 'name' => 'Hiba történt!', 'deleteUrl' => null]]);
+      }
+      } */
+
+
+    public function postPicture() {
 
         try {
 
-            $img = Image::make(Input::file('files'));
+            // Van-e kiválasztott képfájl
+            if (!Input::hasFile('images')) {
+                return Redirect::back()->withInput()->withErrors('Nincs kiválasztva feltöltendő képfájl!');
+            }
 
+            //Galéria lekérdezése azonosító alapján
             $gallery = Gallery::find(Input::get('id'));
 
+            //Teljes méretű képek elérési útvonala
             $path = '/img/gallery/' . $gallery->id;
 
+            //Thumbnail méretű képek elérési útvonala
             $thumbPath = $path . '/thumb';
 
+            //Könyvátrak létrehozása, ha még nem léteztek
             if (!File::exists(public_path() . $path)) {
-                File::makeDirectory(public_path() . $path, 777, true);
+                File::makeDirectory(public_path() . $path, 0777, true);
             }
 
             if (!File::exists(public_path() . $thumbPath)) {
-                File::makeDirectory(public_path() . $thumbPath, 777, true);
+                File::makeDirectory(public_path() . $thumbPath, 0777, true);
             }
 
-            $extension = Input::file('files')->getClientOriginalExtension();
+            //Képek validálása
+            foreach (Input::file('images') as $image) {
 
-            $fileName = microtime(true) . '-' . Str::slug(Str::words($gallery->name, 3, '')) . '.' . $extension;
+                //Szabályok
+                $rules = array(
+                    'file' => 'required|mimes:png,gif,jpeg|max:2048'
+                );
 
-            $img->save(public_path() . $path . '/' . $fileName)->fit(250)->save(public_path() . $thumbPath . '/' . $fileName);
+                $validator = \Validator::make(array('file' => $image), $rules);
 
+                //Validálás
+                if ($validator->passes()) {
 
-            if (File::exists(public_path() . $path . '/' . $fileName) && File::exists(public_path() . $thumbPath . '/' . $fileName)) {
-                $picture = new Picture();
+                    //Kép objektum létrehozása manipuláláshoz.
+                    $imageForManipulation = Image::make($image);
 
-                $picture->gallery_id = $gallery->id;
-                $picture->thumbnail_path = $thumbPath . '/' . $fileName;
-                $picture->picture_path = $path . '/' . $fileName;
-                $picture->name = $fileName;
+                    //Fájlnév létrehozása.
+                    $fileName = microtime(true) . '-' . Str::slug(Str::words($gallery->name, 3, '')) . '.' . $image->getClientOriginalExtension();
 
-                if ($picture->save()) {
-                    $gallery->touch();
-                    return Response::json(['file' => ['url' => $picture->picture_path, 'thumbnailUrl' => $picture->thumbnail_path, 'name' => $picture->name, 'deleteUrl' => '/admin/galeria/kep/' . $picture->id . '/delete']]);
+                    //Kép és thumbnail létrehozása és elmentése
+                    $imageForManipulation->save(public_path() . $path . '/' . $fileName)->fit(250)->save(public_path() . $thumbPath . '/' . $fileName);
+
+                    //Galériakép objektum létrehozása 
+                    $picture = new Picture();
+
+                    $picture->gallery_id = $gallery->id;
+                    $picture->thumbnail_path = $thumbPath . '/' . $fileName;
+                    $picture->picture_path = $path . '/' . $fileName;
+                    $picture->name = $fileName;
+
+                    if ($picture->save()) {
+                        $gallery->touch();
+                    } else {
+                        return Redirect::back()->withErrors('Hiba történt a képfájl mentésekor! ' . $image->getClientOriginalName());
+                    }
+                    
                 } else {
-                    return Response::json(['file' => ['url' => 'http://placehold.it/250/f2dede/a94442&text=Hiba!', 'thumbnailUrl' => 'http://placehold.it/100/f2dede/a94442&text=Hiba!', 'name' => 'Hiba történt!', 'deleteUrl' => null]]);
+                    return Redirect::back()->withErrors($validator->errors());
                 }
             }
+
+            return Redirect::back()->with('message', 'A képfájlok feltöltése sikeres volt!');
+            
         } catch (Exception $e) {
-            return Response::json(['file' => ['url' => 'http://placehold.it/250/f2dede/a94442&text=Hiba!', 'thumbnailUrl' => 'http://placehold.it/250/f2dede/a94442&text=Hiba!', 'name' => 'Hiba történt!', 'deleteUrl' => null]]);
+            if (Config::get('app.debug')) {
+                return Response::json(['message' => $e->getMessage(), 'status' => false]);
+            } else {
+                return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú galéria törlése nem sikerült!', 'status' => false]);
+            }
         }
     }
 

@@ -255,9 +255,27 @@ $(function() {
      * 
      */
 
-    $('.btn-upload').click(function(e) {
+
+    var btnUpload = $('.btn-upload');
+    var inputUpload = $('.input-upload');
+    var btnUploadText = btnUpload.text();
+
+    btnUpload.click(function(e) {
         e.preventDefault();
-        $('.input-upload').click();
+
+        inputUpload.click();
+    });
+
+    inputUpload.change(function() {
+        
+        var uploadValue = $(this).get(0).files.length;
+        
+        if(uploadValue > 0){
+            btnUpload.text(btnUploadText +': '+ uploadValue + " fájl kiválasztva" );
+        } else{
+            btnUpload.text(btnUploadText);
+        }
+
     });
 
     /**

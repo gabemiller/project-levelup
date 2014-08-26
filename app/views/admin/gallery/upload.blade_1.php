@@ -1,4 +1,4 @@
-@extend('')
+@extend('_backeng.master')
 @section('content')
 <section class="content-header">
     <h1>Képfeltöltés</h1>
@@ -13,7 +13,7 @@
 
             <div class="box box-solid">
                 <div class="box-body">
-                    {{Form::open(array('url' => URL::route('admin.galeria.kep.save'),'class'=>'form-horizontal form-ajax-upload','method'=>'POST'))}}
+                    {{Form::open(array('url' => URL::route('admin.galeria.kep.save'),'class'=>'form-horizontal form-ajax-upload','method'=>'POST','files'=>true))}}
 
 
                     {{Form::input('hidden','id',$gallery->id,array('class'=>'form-control'))}}
