@@ -1,4 +1,4 @@
-@extend('_backeng.master')
+@extend('_backend.master')
 @section('content')
 <section class="content-header">
     <h1>Képfeltöltés</h1>
@@ -53,6 +53,7 @@
                                 </tr>
                                 @endforeach
                             </tbody>
+                            @include('_backend.table-footer')
                         </table>
                     </div>
                 </div>
