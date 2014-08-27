@@ -1,8 +1,7 @@
 <?php
 
 return array(
-    'title' => 'Banhorvati.hu',
+    'title' => 'Nagybarca.hu',
     'admintitle' => 'Divide Admin',
-    'debug' => true
 );
 

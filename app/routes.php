@@ -11,7 +11,6 @@
 /* Route::get('/',function(){   
   return 'Cover page';
   }); */
-
   
 Route::get('/', ['uses' => 'Site\HomeController@index', 'as' => 'fooldal']);
 
