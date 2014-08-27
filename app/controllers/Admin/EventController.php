@@ -82,7 +82,7 @@ class EventController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('Az esemény feltöltése nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('Az esemény feltöltése nem sikerült!');
@@ -157,7 +157,7 @@ class EventController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('Az esemény módosítása nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('Az esemény módosítása nem sikerült!');
@@ -183,7 +183,7 @@ class EventController extends \BaseController {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú esemény törlése nem sikerült!', 'status' => false]);
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Response::json(['message' => $e->getMessage(), 'status' => false]);
             } else {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú esemény törlése nem sikerült!', 'status' => false]);

@@ -83,7 +83,7 @@ class ArticleController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('A hír feltöltése nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('A hír feltöltése nem sikerült!');
@@ -156,7 +156,7 @@ class ArticleController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('A hír módosítása nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('A hír módosítása nem sikerült!');
@@ -182,7 +182,7 @@ class ArticleController extends \BaseController {
                 return Response::json(['message'=>'A(z) '.$id.' azonosítójú hír törlése nem sikerült!','status'=>false]);
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Response::json(['message'=>$e->getMessage(),'status'=>false]);
             } else {
                 return Response::json(['message'=>'A(z) '.$id.' azonosítójú hír törlése nem sikerült!','status'=>false]);

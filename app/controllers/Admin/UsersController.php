@@ -75,7 +75,7 @@ class UsersController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('Az adminisztrátor felvétele nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('Az adminisztrátor felvétele nem sikerült!');
@@ -142,7 +142,7 @@ class UsersController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('Az adminisztrátor módosítása nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('Az adminisztrátor módosítása nem sikerült!');
@@ -167,7 +167,7 @@ class UsersController extends \BaseController {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú felhasználó törlése nem sikerült!', 'status' => false]);
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Response::json(['message' => $e->getMessage(), 'status' => false]);
             } else {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú felhasználó törlése nem sikerült!', 'status' => false]);
@@ -256,7 +256,7 @@ class UsersController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('Az adataid módosítása nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('Az adataid módosítása nem sikerült!');
@@ -291,7 +291,7 @@ class UsersController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('A jelszó módosítása nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('A jelszó módosítása nem sikerült!');
@@ -344,7 +344,7 @@ class UsersController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('A profilkép módosítása nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('A profilkép módosítása nem sikerült!');
@@ -364,7 +364,7 @@ class UsersController extends \BaseController {
                 return Redirect::back()->withInput()->withErrors('A profilkép törlése nem sikerült!');
             }
         } catch (Exception $e) {
-            if (Config::get('globals.debug')) {
+            if (Config::get('app.debug')) {
                 return Redirect::back()->withInput()->withErrors($e->getMessage());
             } else {
                 return Redirect::back()->withInput()->withErrors('A profilkép módosítása nem sikerült!');
