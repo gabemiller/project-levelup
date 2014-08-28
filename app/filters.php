@@ -19,7 +19,7 @@ App::before(function($request) {
      * A láblévben megjelenő cikkek objektumát hozza létre.
      */
     if (!Request::is('admin') && !Request::is('admin/*')) {
-        View::share('articleFooter', \Divide\CMS\Article::orderBy('created_at', 'desc')->take('3')->get());
+        View::share('articleFooter', \Divide\CMS\Article::orderBy('created_at', 'desc')->take('3')->get(['id','title','author_id','created_at']));
     }
 
     /**
