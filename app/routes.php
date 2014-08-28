@@ -12,6 +12,8 @@
   return 'Cover page';
   }); */
 
+dd(App::environment());
+
 Route::get('/', ['uses' => 'Site\HomeController@index', 'as' => 'fooldal']);
 
 Route::get('hirek/{id}/{title}', ['uses' => 'Site\ArticleController@show', 'as' => 'hirek.show'])->where('id', '[0-9]+')->where('title', '[0-9A-z_-]+');
