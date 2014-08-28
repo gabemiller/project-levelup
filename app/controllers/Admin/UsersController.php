@@ -24,7 +24,7 @@ class UsersController extends \BaseController {
      */
     public function index() {
         View::share('title', 'Felhasználók');
-        $this->layout->content = View::make('admin.users.index')->with('users', User::all());
+        $this->layout->content = View::make('admin.users.index')->with('users', User::all(['id','first_name','last_name','created_at','last_login','email','phone']));
     }
 
     /**

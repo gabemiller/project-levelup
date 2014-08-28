@@ -38,7 +38,7 @@ Route::get('oldal/{id}/{title}', ['uses' => 'Site\PageController@show', 'as' => 
  * A cms-hez tarozó menu-k. 
  * 
  */
-if (!Request::is('admin/*')) {
+if (!Request::is('admin') && !Request::is('admin/*')) {
     
     Menu::make('mainMenu', function($menu) {
 

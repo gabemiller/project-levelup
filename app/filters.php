@@ -18,14 +18,14 @@ App::before(function($request) {
     /**
      * A láblévben megjelenő cikkek objektumát hozza létre.
      */
-    if (Request::path() != '/admin/*') {
+    if (!Request::is('admin') && !Request::is('admin/*')) {
         View::share('articleFooter', \Divide\CMS\Article::orderBy('created_at', 'desc')->take('3')->get());
     }
 
     /**
      * A felhasználó objektumát hozza létre!.
      */
-    if (Sentry::check()) {
+    if ((Request::is('admin') || Request::is('admin/*')) && Sentry::check()) {
         View::share('user', \Divide\CMS\User::find(\Sentry::getUser()->id));
     }
 

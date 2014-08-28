@@ -24,7 +24,7 @@ class PageController extends \BaseController {
     public function index() {
         View::share('title', 'Oldalak');
 
-        $this->layout->content = View::make('admin.page.index')->with('pages', Page::all());
+        $this->layout->content = View::make('admin.page.index')->with('pages', Page::all(['id','parent','menu','title']));
     }
 
     /**

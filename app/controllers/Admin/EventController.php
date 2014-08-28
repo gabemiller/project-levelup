@@ -25,7 +25,7 @@ class EventController extends \BaseController {
     public function index() {
         View::share('title', 'Oldalak');
 
-        $this->layout->content = View::make('admin.event.index')->with('events', Event::all());
+        $this->layout->content = View::make('admin.event.index')->with('events', Event::all(['id','title','start','end']));
     }
 
     /**
