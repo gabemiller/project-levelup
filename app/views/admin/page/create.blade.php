@@ -45,8 +45,7 @@
                     <div class="form-group">
                         {{Form::label('content', 'Tartalom',array('class'=>'col-lg-2 control-label'))}}
                         <div class="col-lg-9">
-                            <div id="summernote-div"></div>
-                            {{Form::textarea('content','',array('class'=>'form-control hidden','id'=>'summernote-textarea'))}}
+                            {{Form::textarea('content','',array('id'=>'summernote-textarea'))}}
                         </div>
                     </div>
                     <div class="form-group">

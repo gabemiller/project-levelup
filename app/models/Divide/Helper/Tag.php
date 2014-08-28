@@ -16,7 +16,7 @@ class Tag extends \Eloquent {
      * @return type
      */
     public static function getTagByName(array $names) {
-        return Tag::whereIn('name', $names)->get(['id','name']);
+        return Tag::whereIn('name', $names)->get(['id','name','slug']);
     }
 
 }

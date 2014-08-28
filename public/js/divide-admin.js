@@ -28,7 +28,7 @@ $(function() {
      * 
      */
 
-    $('#summernote-div').summernote({
+    $('#summernote-textarea').summernote({
         height: 300,
         lang: 'hu-HU'
     });
