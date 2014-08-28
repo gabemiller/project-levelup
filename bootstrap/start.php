@@ -25,7 +25,19 @@ $app = new Illuminate\Foundation\Application;
 */
 
 $env = $app->detectEnvironment(function(){
-    return $_SERVER['SERVER_NAME'] == 'divide-cms.dev' ? 'developement' : 'production';
+    
+    $environment = array(
+        'divide-cms.dev' => 'developement',
+        'divide.dev' => 'developement',
+        'divide-test.dev' => 'testing'
+    );
+    
+    if(isset($_SERVER['SERVER_NAME']) && isset($environment[$_SERVER['SERVER_NAME']])){
+        return $environment[$_SERVER['SERVER_NAME']];
+    } else{
+        return 'production';
+    }
+    
 });
 
 /*

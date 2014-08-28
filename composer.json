@@ -5,12 +5,15 @@
     "license": "MIT",
     "require": {
         "laravel/framework": "4.2.*",
-        "davejamesmiller/laravel-breadcrumbs": "~2.2.1",
-        "way/generators": "2.*",
+        "davejamesmiller/laravel-breadcrumbs": "~2.2.1",     
         "rtconner/laravel-tagging": "dev-master",
         "cartalyst/sentry": "2.1.*",
         "intervention/image": "2.*",
         "lavary/laravel-menu": "dev-master"
+    },
+    "require-dev": {
+        "itsgoingd/clockwork": "dev-master",
+        "way/generators": "2.*"
     },
     "autoload": {
         "classmap": [

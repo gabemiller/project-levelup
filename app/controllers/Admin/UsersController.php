@@ -8,7 +8,6 @@ use Input;
 use Response;
 use Exception;
 use Redirect;
-use Session;
 use Validator;
 use Config;
 use Image;

@@ -11,7 +11,7 @@
 /* Route::get('/',function(){   
   return 'Cover page';
   }); */
-  
+
 Route::get('/', ['uses' => 'Site\HomeController@index', 'as' => 'fooldal']);
 
 Route::get('hirek/{id}/{title}', ['uses' => 'Site\ArticleController@show', 'as' => 'hirek.show'])->where('id', '[0-9]+')->where('title', '[0-9A-z_-]+');
@@ -38,25 +38,29 @@ Route::get('oldal/{id}/{title}', ['uses' => 'Site\PageController@show', 'as' => 
  * A cms-hez tarozó menu-k. 
  * 
  */
-Menu::make('mainMenu', function($menu) {
-
-    $menu->add('Főoldal', array('route' => 'fooldal'));
-
-    $menu->add('Események', array('route' => 'esemenyek.index'));
-
-    $menu->add('Galériák', array('route' => 'galeriak.index'));
-
+if (!Request::is('admin/*')) {
     
-    \Divide\CMS\Page::getPagesForMenu($menu, 0);
+    Menu::make('mainMenu', function($menu) {
 
-    foreach ($menu->all() as $item) {
-        if ($item->hasChildren()) {
-            $item->append('<i class="fa fa-bars"></i>');
+        $menu->add('Főoldal', array('route' => 'fooldal'));
+
+        $menu->add('Események', array('route' => 'esemenyek.index'));
+
+        $menu->add('Galériák', array('route' => 'galeriak.index'));
+
+        try {
+            \Divide\CMS\Page::getPagesForMenu($menu, 0);
+
+            foreach ($menu->all() as $item) {
+                if ($item->hasChildren()) {
+                    $item->append('<i class="fa fa-bars"></i>');
+                }
+            }
+        } catch (\Exception $e) {
+            
         }
-    }
-});
-
-
+    });
+}
 
 
 /**
@@ -101,14 +105,14 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'before' => 'use
      * Felhasználók kezeléséhez tartozó route-ok.
      */
     Route::group(['prefix' => 'felhasznalok'], function() {
-        Route::resource('felhasznalo', 'UsersController');      
-        
+        Route::resource('felhasznalo', 'UsersController');
+
         Route::post('felhasznalo/{id}/change', ['uses' => 'UsersController@postProfile', 'as' => 'admin.felhasznalok.felhasznalo.change']);
-        
+
         Route::post('felhasznalo/{id}/password', ['uses' => 'UsersController@postPassword', 'as' => 'admin.felhasznalok.felhasznalo.password']);
-        
+
         Route::post('felhasznalo/{id}/picture', ['uses' => 'UsersController@postProfilePicture', 'as' => 'admin.felhasznalok.felhasznalo.picture']);
-        
+
         Route::get('felhasznalo/{id}/picture/delete', ['uses' => 'UsersController@deleteProfilePicture', 'as' => 'admin.felhasznalok.felhasznalo.delete.picture']);
 
         Route::resource('felhasznalo-csoport', 'GroupsController');

@@ -13,6 +13,7 @@
 
 App::before(function($request) {
 
+    Event::fire('clockwork.controller.start');
 
     /**
      * A láblévben megjelenő cikkek objektumát hozza létre.
@@ -42,7 +43,7 @@ App::before(function($request) {
 
 
 App::after(function($request, $response) {
-    //
+    Event::fire('clockwork.controller.end');
 });
 
 /*
@@ -155,3 +156,5 @@ Route::filter('csrf', function() {
         throw new Illuminate\Session\TokenMismatchException;
     }
 });
+
+

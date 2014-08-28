@@ -39,6 +39,7 @@ return array(
     'DaveJamesMiller\\Breadcrumbs' => array($vendorDir . '/davejamesmiller/laravel-breadcrumbs/src'),
     'Crypt' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'Conner\\Tagging\\' => array($vendorDir . '/rtconner/laravel-tagging/src'),
+    'Clockwork' => array($vendorDir . '/itsgoingd/clockwork'),
     'ClassPreloader' => array($vendorDir . '/classpreloader/classpreloader/src'),
     'Cartalyst\\Sentry' => array($vendorDir . '/cartalyst/sentry/src'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
