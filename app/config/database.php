@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'divide_nagybarca_cms',
-			'username'  => 'nagybarca',
-			'password'  => '5ovleaj^',
+			'database'  => 'dividedb',
+			'username'  => 'forge',
+			'password'  => 'AF9eDfhkIWXbUYJppKtF',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_hungarian_ci',
 			'prefix'    => '',
