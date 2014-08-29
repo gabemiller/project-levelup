@@ -40,8 +40,6 @@
         {{ HTML::script('js/plugins/bootstrap-switch.min.js'); }}
         {{ HTML::script('js/plugins/bootstrap-tagsinput.min.js'); }}
         {{ HTML::script('js/plugins/jquery.datetimepicker.js'); }}
-        {{ HTML::script('js/plugins/jquery.ui.widget.js'); }}
-        {{ HTML::script('js/plugins/jquery.fileupload.js'); }}
         {{ HTML::script('js/divide-admin.js'); }}
     </body>
 </html>

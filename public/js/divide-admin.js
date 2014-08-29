@@ -203,10 +203,6 @@ $(function() {
      * 
      */
 
-    $('.btn-copy').on('click', this, function(e) {
-        $('#summernote-textarea').html($('#summernote-div').code());
-    });
-
     $('.btn-ajax').on('click', this, function(e) {
         e.preventDefault();
 
