@@ -12,10 +12,11 @@
   return 'Cover page';
   }); */
 
-Route::get('/phpinfo',function(){
-  echo phpinfo(); 
-});
-
+if (Config::get('app.debug')) {
+    Route::get('/phpinfo', function() {
+        echo phpinfo();
+    });
+}
 
 Route::get('/', ['uses' => 'Site\HomeController@index', 'as' => 'fooldal']);
 
@@ -44,7 +45,7 @@ Route::get('oldal/{id}/{title}', ['uses' => 'Site\PageController@show', 'as' => 
  * 
  */
 if (!Request::is('admin') && !Request::is('admin/*')) {
-    
+
     Menu::make('mainMenu', function($menu) {
 
         $menu->add('Főoldal', array('route' => 'fooldal'));
