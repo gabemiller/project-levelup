@@ -4,14 +4,17 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/models/Divide/Helper/Tag.php</file>
+            <file>file:/C:/wamp/www/laravel/project-levelup/app/config/app.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/event/edit.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/public/js/divide-admin.js</file>
+            <file>file:/C:/wamp/www/laravel/project-levelup/app/config/database.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/page/create.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/bootstrap/start.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/_backend/footer.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/routes.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/site/article/tag.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/event/create.blade.php</file>
+            <file>file:/C:/wamp/www/laravel/project-levelup/app/models/Divide/CMS/Page.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/article/edit.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/page/edit.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/_backend/master.blade.php</file>

@@ -12,6 +12,10 @@
   return 'Cover page';
   }); */
 
+Route::get('/phpinfo',function(){
+   return phpinfo(); 
+});
+
 
 Route::get('/', ['uses' => 'Site\HomeController@index', 'as' => 'fooldal']);
 
