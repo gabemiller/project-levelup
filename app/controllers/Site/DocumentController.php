@@ -2,32 +2,21 @@
 
 namespace Site;
 
+use Divide\CMS\Document;
+use View;
 
 class DocumentController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /site\document
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-	}
+    protected $layout = '_frontend.master';
 
-
-	/**
-	 * Display the specified resource.
-	 * GET /site\document/{id}
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
+    /**
+     * Display a listing of the resource.
+     * GET /site\document
+     *
+     * @return Response
+     */
+    public function index() {
+        //
+    }
 
 }

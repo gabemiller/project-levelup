@@ -36,6 +36,8 @@ Route::get('galeriak/{id}/{title}', ['uses' => 'Site\GalleryController@show', 'a
 
 Route::get('oldal/{id}/{title}', ['uses' => 'Site\PageController@show', 'as' => 'oldalak.show'])->where('id', '[0-9]+')->where('title', '[0-9A-z_-]+');
 
+Route::get('documentumok', ['uses' => 'Site\DocumentController@index', 'as' => 'dokumentumok.index']);
+
 /**
  * -----------------------------------------------------------------------------
  * Site menu
@@ -53,6 +55,8 @@ if (!Request::is('admin') && !Request::is('admin/*')) {
         $menu->add('Események', array('route' => 'esemenyek.index'));
 
         $menu->add('Galériák', array('route' => 'galeriak.index'));
+        
+        $menu->add('Dokumentumok', array('route' => 'dokumentumok.index'));
 
         try {
             \Divide\CMS\Page::getPagesForMenu($menu, 0);
@@ -98,6 +102,8 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'before' => 'use
     Route::resource('hir', 'ArticleController');
 
     Route::resource('esemeny', 'EventController');
+    
+    Route::resource('dokumentum', 'DocumentController');
 
     Route::resource('galeria', 'GalleryController');
 
