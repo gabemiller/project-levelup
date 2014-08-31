@@ -8,19 +8,19 @@ return [
     |--------------------------------------------------------------------------
     |
     */
-    'model_template_path' => 'C:\wamp\www\laravel\tardona\app/templates/model.txt',
+    'model_template_path' => app_path('models').'/../templates/model.txt',
 
-    'scaffold_model_template_path' => 'C:\wamp\www\laravel\tardona\app/templates/scaffolding/model.txt',
+    'scaffold_model_template_path' => app_path('models').'/../templates/scaffolding/model.txt',
 
-    'controller_template_path' => 'C:\wamp\www\laravel\tardona\app/templates/controller.txt',
+    'controller_template_path' => app_path('models').'/../templates/controller.txt',
 
-    'scaffold_controller_template_path' => 'C:\wamp\www\laravel\tardona\app/templates/scaffolding/controller.txt',
+    'scaffold_controller_template_path' => app_path('models').'/../templates/scaffolding/controller.txt',
 
-    'migration_template_path' => 'C:\wamp\www\laravel\tardona\app/templates/migration.txt',
+    'migration_template_path' => app_path('models').'/../templates/migration.txt',
 
-    'seed_template_path' => 'C:\wamp\www\laravel\tardona\app/templates/seed.txt',
+    'seed_template_path' => app_path('models').'/../templates/seed.txt',
 
-    'view_template_path' => 'C:\wamp\www\laravel\tardona\app/templates/view.txt',
+    'view_template_path' => app_path('models').'/../templates/view.txt',
 
 
     /*

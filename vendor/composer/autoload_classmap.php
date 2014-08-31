@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Admin' => $baseDir . '/app/controllers/Admin/DocumentController.php',
     'Admin\\ArticleController' => $baseDir . '/app/controllers/Admin/ArticleController.php',
     'Admin\\EventController' => $baseDir . '/app/controllers/Admin/EventController.php',
     'Admin\\GalleryController' => $baseDir . '/app/controllers/Admin/GalleryController.php',
@@ -123,6 +124,7 @@ return array(
     'Conner\\Tagging\\Tagged' => $vendorDir . '/rtconner/laravel-tagging/src/Conner/Tagging/Tagged.php',
     'Conner\\Tagging\\TaggingUtil' => $vendorDir . '/rtconner/laravel-tagging/src/Conner/Tagging/TaggingUtil.php',
     'CreateArticlesTable' => $baseDir . '/app/database/migrations/2014_07_09_145537_create_articles_table.php',
+    'CreateDocumentTable' => $baseDir . '/app/database/migrations/2014_08_31_220243_create_document_table.php',
     'CreateEventsTable' => $baseDir . '/app/database/migrations/2014_07_09_150125_create_events_table.php',
     'CreateGalleryTable' => $baseDir . '/app/database/migrations/2014_07_09_150143_create_gallery_table.php',
     'CreatePagesTable' => $baseDir . '/app/database/migrations/2014_07_18_090530_create_pages_table.php',
@@ -147,6 +149,7 @@ return array(
     'DaveJamesMiller\\Breadcrumbs\\Generator' => $vendorDir . '/davejamesmiller/laravel-breadcrumbs/src/DaveJamesMiller/Breadcrumbs/Generator.php',
     'DaveJamesMiller\\Breadcrumbs\\Manager' => $vendorDir . '/davejamesmiller/laravel-breadcrumbs/src/DaveJamesMiller/Breadcrumbs/Manager.php',
     'DaveJamesMiller\\Breadcrumbs\\ServiceProvider' => $vendorDir . '/davejamesmiller/laravel-breadcrumbs/src/DaveJamesMiller/Breadcrumbs/ServiceProvider.php',
+    'Divide' => $baseDir . '/app/models/Divide/CMS/Document.php',
     'Divide\\CMS\\Article' => $baseDir . '/app/models/Divide/CMS/Article.php',
     'Divide\\CMS\\Event' => $baseDir . '/app/models/Divide/CMS/Event.php',
     'Divide\\CMS\\Gallery' => $baseDir . '/app/models/Divide/CMS/Gallery.php',
@@ -1194,6 +1197,7 @@ return array(
     'Psr\\Log\\LoggerTrait' => $vendorDir . '/psr/log/Psr/Log/LoggerTrait.php',
     'Psr\\Log\\NullLogger' => $vendorDir . '/psr/log/Psr/Log/NullLogger.php',
     'SessionHandlerInterface' => $vendorDir . '/symfony/http-foundation/Symfony/Component/HttpFoundation/Resources/stubs/SessionHandlerInterface.php',
+    'Site' => $baseDir . '/app/controllers/Site/DocumentController.php',
     'Site\\ArticleController' => $baseDir . '/app/controllers/Site/ArticleController.php',
     'Site\\EventController' => $baseDir . '/app/controllers/Site/EventController.php',
     'Site\\GalleryController' => $baseDir . '/app/controllers/Site/GalleryController.php',
