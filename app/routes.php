@@ -13,7 +13,7 @@
   }); */
 
 Route::get('/phpinfo',function(){
-   return phpinfo(); 
+  echo phpinfo(); 
 });
 
 
