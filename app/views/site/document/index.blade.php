@@ -1,30 +1,32 @@
-@extend('')
+@extend('_frontend.master')
+@section('breadcrumb')
+{{-- HTML::decode(Breadcrumbs::render('')) --}}
+@stop
 @section('content')
-<section class="content-header">
-    <h1></h1>
-    {{-- HTML::decode(Breadcrumbs::render('')) --}}
-</section>
-
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-
-            <div class="box box-solid">
-                <div class="box-body">
-
-                </div>
-            </div>
-
-            <div class="box box-solid box-divide">
-                <div class="box-header">
-                    <h3 class="box-title"></h3>
-                </div>
-                <div class="box-body">
-
-                </div>
-            </div>
-
-        </div>
+<div class="documents">
+    <div class="table-responsive">
+        <table class="table table-striped table-middle">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        Letölthető dokumentumok
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($documents as $doc)
+                <tr>
+                    <td>
+                        <h4>{{$doc->name}}</h4>
+                        <p>{{$doc->description}}</p>
+                    </td>
+                    <td>
+                        {{HTML::decode(HTML::link($doc->path,'Letöltés',array('class'=>'btn btn-small btn-tardona-yellow','target'=>'_blank')))}}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-</section>
+</div>
 @stop
