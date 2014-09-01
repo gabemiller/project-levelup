@@ -7,6 +7,10 @@ use View;
 use Validator;
 use Input;
 use Redirect;
+use Config;
+use Str;
+use File;
+use Response;
 
 class DocumentController extends \BaseController {
 
@@ -21,7 +25,7 @@ class DocumentController extends \BaseController {
     public function index() {
         View::share('title', 'Dokumentumok');
 
-        $this->layout->content = View::make('admin.document.index')->with('documents', Document::all(['id', 'name', 'created_at']));
+        $this->layout->content = View::make('admin.document.index')->with('documents', Document::all(['id', 'name','path', 'created_at']));
     }
 
     /**
@@ -60,12 +64,20 @@ class DocumentController extends \BaseController {
 
             $doc->name = Input::get('name');
             $doc->description = Input::get('description');
-            
-            dd($doc);
-            
-            $doc->path = $path;
 
+            $file = Input::file('file');
 
+            $path = '/documents';
+
+            if (!File::exists(public_path() . $path)) {
+                File::makeDirectory(public_path() . $path, 0777, true);
+            }
+
+            $fileName = Str::slug($doc->name) . '.' . $file->getClientOriginalExtension();
+
+            $file->move(public_path() . $path, $fileName);
+
+            $doc->path = $path . '/' . $fileName;
 
             if ($doc->save()) {
                 return Redirect::back()->with('message', 'A dokumentum feltöltése sikerült!');
@@ -119,7 +131,68 @@ class DocumentController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        //
+        try {
+
+            $rules = array(
+                'name' => 'required|unique:document,name,' . $id,
+            );
+
+            $validation = Validator::make(Input::all(), $rules);
+
+            if ($validation->fails()) {
+                return Redirect::back()->withInput()->withErrors($validation->messages());
+            }
+
+            $doc = Document::find($id);
+
+            $doc->name = Input::get('name');
+            $doc->description = Input::get('description');
+
+            if (Input::hasFile('file')) {
+
+                if (File::exists(public_path() . $doc->path)) {
+                    File::delete(public_path() . $doc->path);
+                }
+
+                $file = Input::file('file');
+
+                $path = '/documents';
+
+                if (!File::exists(public_path() . $path)) {
+                    File::makeDirectory(public_path() . $path, 0777, true);
+                }
+
+                $fileName = Str::slug($doc->name) . '.' . $file->getClientOriginalExtension();
+
+                $file->move(public_path() . $path, $fileName);
+
+                $doc->path = $path . '/' . $fileName;
+            } else {
+
+                if (!File::exists($doc->path)) {
+
+                    $path = '/documents';
+
+                    $fileName = Str::slug($doc->name) . '.' . File::extension($doc->path);
+
+                    File::move(public_path() . $doc->path, public_path() . $path . '/' . $fileName);
+
+                    $doc->path = $path . '/' . $fileName;
+                }
+            }
+
+            if ($doc->save()) {
+                return Redirect::back()->with('message', 'A dokumentum feltöltése sikerült!');
+            } else {
+                return Redirect::back()->withInput()->withErrors('A dokumentum feltöltése nem sikerült!');
+            }
+        } catch (Exception $e) {
+            if (Config::get('app.debug')) {
+                return Redirect::back()->withInput()->withErrors($e->getMessage());
+            } else {
+                return Redirect::back()->withInput()->withErrors('A dokumentum feltöltése nem sikerült!');
+            }
+        }
     }
 
     /**
@@ -132,9 +205,13 @@ class DocumentController extends \BaseController {
     public function destroy($id) {
         try {
 
-            $article = Dcoument::find($id);
+            $doc = Document::find($id);
 
-            if ($article->delete()) {
+            if (File::exists(public_path() . $doc->path)) {
+                File::delete(public_path() . $doc->path);
+            }
+
+            if ($doc->delete()) {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú dokumentum törlése sikerült!', 'status' => true]);
             } else {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú dokumentum törlése nem sikerült!', 'status' => false]);

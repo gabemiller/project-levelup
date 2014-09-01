@@ -1,7 +1,7 @@
-@extend('')
+@extend('_backend.master')
 @section('content')
 <section class="content-header">
-    <h1></h1>
+    <h1>Új dokumentum</h1>
     {{-- HTML::decode(Breadcrumbs::render('')) --}}
 </section>
 
@@ -32,7 +32,7 @@
                     <div class="form-group">
                         {{Form::label('description', 'Leírás',array('class'=>'col-lg-2 control-label'))}}
                         <div class="col-lg-9">
-                            {{Form::textarea('description','',array('class'=>'form-control'))}}
+                            {{Form::textarea('description','',array('class'=>'form-control','placeholder'=>'Leírás'))}}
                         </div>
                     </div>
                     <div class="form-group">

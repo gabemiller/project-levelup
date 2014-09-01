@@ -6,9 +6,9 @@
             <file>file:/C:/wamp/www/laravel/project-levelup/app/controllers/Site/DocumentController.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/document/index.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/controllers/Admin/DocumentController.php</file>
+            <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/document/edit.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/document/create.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/controllers/Admin/GalleryController.php</file>
-            <file>file:/C:/wamp/www/laravel/project-levelup/app/views/admin/article/create.blade.php</file>
             <file>file:/C:/wamp/www/laravel/project-levelup/app/controllers/Admin/ArticleController.php</file>
         </group>
     </open-files>

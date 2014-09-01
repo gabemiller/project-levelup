@@ -1,30 +1,8 @@
-@extend('')
-@section('content')
-<section class="content-header">
-    <h1></h1>
-    {{-- HTML::decode(Breadcrumbs::render('')) --}}
-</section>
-
-<section class="content">
-    <div class="row">
-        <div class="col-xs-12">
-
-            <div class="box box-solid">
-                <div class="box-body">
-
-                </div>
-            </div>
-
-            <div class="box box-solid box-divide">
-                <div class="box-header">
-                    <h3 class="box-title"></h3>
-                </div>
-                <div class="box-body">
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-@stop
+<tr>
+    <td class="text-center">{{Form::input('checkbox','delete',$document->id,array('data-url'=> URL::route('admin.dokumentum.destroy',array('id'=>$document->id))))}}</td>
+    <td>{{$document->id}}</td>
+    <td>{{$document->name}}</td>
+    <td>{{$document->path}}</td>
+    <td>{{str_replace('-','.',$document->created_at)}}</td>
+    <td class="text-center">{{HTML::decode(HTML::linkRoute('admin.dokumentum.edit','<i class="fa fa-edit"></i> Módosítás',array('id'=>$document->id),array('class'=>'btn btn-sm btn-default')))}}</td>
+</tr>

@@ -16,7 +16,9 @@ class DocumentController extends \BaseController {
      * @return Response
      */
     public function index() {
-        //
+        View::share('title','Dokumentumok');
+        
+        $this->layout->content = View::make('site.document.index')->with('documents',Document::all());
     }
 
 }
