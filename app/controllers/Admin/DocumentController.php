@@ -4,12 +4,14 @@ namespace Admin;
 
 use Divide\CMS\Document;
 use View;
+use Validator;
+use Input;
+use Redirect;
 
 class DocumentController extends \BaseController {
 
-    
-     protected $layout = '_backend.master';
-    
+    protected $layout = '_backend.master';
+
     /**
      * Display a listing of the resource.
      * GET /admin\document
@@ -29,7 +31,9 @@ class DocumentController extends \BaseController {
      * @return Response
      */
     public function create() {
-        //
+        View::share('title', 'Új dokumentum');
+
+        $this->layout->content = View::make('admin.document.create');
     }
 
     /**
@@ -39,7 +43,42 @@ class DocumentController extends \BaseController {
      * @return Response
      */
     public function store() {
-        //
+        try {
+
+            $rules = array(
+                'name' => 'required|unique:document',
+                'file' => 'required'
+            );
+
+            $validation = Validator::make(Input::all(), $rules);
+
+            if ($validation->fails()) {
+                return Redirect::back()->withInput()->withErrors($validation->messages());
+            }
+
+            $doc = new Document();
+
+            $doc->name = Input::get('name');
+            $doc->description = Input::get('description');
+            
+            dd($doc);
+            
+            $doc->path = $path;
+
+
+
+            if ($doc->save()) {
+                return Redirect::back()->with('message', 'A dokumentum feltöltése sikerült!');
+            } else {
+                return Redirect::back()->withInput()->withErrors('A dokumentum feltöltése nem sikerült!');
+            }
+        } catch (Exception $e) {
+            if (Config::get('app.debug')) {
+                return Redirect::back()->withInput()->withErrors($e->getMessage());
+            } else {
+                return Redirect::back()->withInput()->withErrors('A dokumentum feltöltése nem sikerült!');
+            }
+        }
     }
 
     /**
@@ -50,7 +89,11 @@ class DocumentController extends \BaseController {
      * @return Response
      */
     public function show($id) {
-        //
+        $doc = Document::find($id);
+
+        View::share('title', 'Dokumentum: ' . $doc->name);
+
+        $this->layout->content = View::make('admin.document.show')->with('document', $doc);
     }
 
     /**
@@ -61,7 +104,11 @@ class DocumentController extends \BaseController {
      * @return Response
      */
     public function edit($id) {
-        //
+        $doc = Document::find($id);
+
+        View::share('title', 'Dokumentum szerkesztése: ' . $doc->name);
+
+        $this->layout->content = View::make('admin.document.edit')->with('document', $doc);
     }
 
     /**
@@ -83,7 +130,22 @@ class DocumentController extends \BaseController {
      * @return Response
      */
     public function destroy($id) {
-        //
+        try {
+
+            $article = Dcoument::find($id);
+
+            if ($article->delete()) {
+                return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú dokumentum törlése sikerült!', 'status' => true]);
+            } else {
+                return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú dokumentum törlése nem sikerült!', 'status' => false]);
+            }
+        } catch (Exception $e) {
+            if (Config::get('app.debug')) {
+                return Response::json(['message' => $e->getMessage(), 'status' => false]);
+            } else {
+                return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú dokumentum törlése nem sikerült!', 'status' => false]);
+            }
+        }
     }
 
 }
