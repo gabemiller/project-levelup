@@ -67,7 +67,7 @@ footer a:active{
 
 footer .footer-bottom{
     /*background-color: #006d33;*/
-    background-color: #016E32;
+    background-color: #F4B700;
     width: 100%;
     min-height: 40px;
     /*color: #33A066;*/
@@ -134,7 +134,7 @@ h1,h2,h3,h4,h5,h6, dt{
 
 header {
     min-height:199px;
-    background: url('/assets/bg.jpg') center bottom no-repeat #016E32;
+    background: url('/assets/bg.jpg') center bottom no-repeat #F4B700;
 	background-size: cover;
     background-attachment: fixed;  
     color:#aaaacc;
