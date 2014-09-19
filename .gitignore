@@ -1,3 +1,5 @@
 public
 app/config/app.php
 app/config/database.php
+app/config/developement
+app/config/testing
