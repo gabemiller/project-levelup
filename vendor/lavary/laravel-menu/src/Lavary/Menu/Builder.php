@@ -517,7 +517,7 @@ class Builder {
 			$items  .= "<{$item_tag}{$this->attributes($item->attr())}>";
 
 			if($item->link) {
-				$items .= $item->prepend."<a{$this->attributes($item->link->attr())} href=\"{$item->url()}\">{$item->title}</a>".$item->append;
+				$items .= "<a{$this->attributes($item->link->attr())} href=\"{$item->url()}\">{$item->title}</a>";
 			} else {
 				$items .= $item->title;
 			}
