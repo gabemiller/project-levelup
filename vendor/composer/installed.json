@@ -2085,5 +2085,53 @@
         "keywords": [
             "laravel"
         ]
+    },
+    {
+        "name": "ryannielson/meta",
+        "version": "1.1.1",
+        "version_normalized": "1.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/RyanNielson/meta.git",
+            "reference": "879506c66438849c836d93460f8fcfd5e6dce299"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/RyanNielson/meta/zipball/879506c66438849c836d93460f8fcfd5e6dce299",
+            "reference": "879506c66438849c836d93460f8fcfd5e6dce299",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpspec/phpspec": "2.0.*@dev"
+        },
+        "time": "2014-08-12 16:53:48",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "RyanNielson\\Meta\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ryan Nielson",
+                "email": "ryan.nielson@gmail.com",
+                "homepage": "http://nielson.io"
+            }
+        ],
+        "description": "A package that makes it easy to add meta tags to your views. Includes easy Laravel integration.",
+        "homepage": "https://github.com/RyanNielson/meta",
+        "keywords": [
+            "laravel",
+            "meta",
+            "view"
+        ]
     }
 ]
