@@ -7,7 +7,7 @@
         {{ HTML::style('css/bootstrap.min.css'); }}
         {{ HTML::style('css/font-awesome.min.css'); }}
         {{ HTML::style('css/animate.css'); }}
-        {{ HTML::style('css/admin/divide-admin.login.css'); }}
+        {{ HTML::style('css/divide-admin.login.css'); }}
     </head>
     <body>
         <div class="container animated flipInX">

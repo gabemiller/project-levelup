@@ -14,7 +14,8 @@
 
 if (Config::get('app.debug')) {
     Route::get('/phpinfo', function() {
-        echo phpinfo();
+        //echo phpinfo();
+        echo App::environment();
     });
 }
 

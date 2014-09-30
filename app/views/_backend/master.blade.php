@@ -4,20 +4,10 @@
         <meta charset="UTF-8">
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <title>{{Config::get('globals.admintitle');}} - {{$title or ''}}</title>
+        
         {{ HTML::style('http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,400,300,600&subset=latin')}}
         {{ HTML::style('css/bootstrap.min.css'); }}
-        {{ HTML::style('css/font-awesome.min.css'); }}
-        {{ HTML::style('css/admin/admin-lte.css'); }}
-        {{ HTML::style('css/admin/summernote.css'); }}
-        {{ HTML::style('css/admin/summernote-bs3.css'); }}
-        {{ HTML::style('css/admin/tablesorter-bootstrap.css'); }}
-        {{ HTML::style('css/admin/alertify.core.css'); }}
-        {{ HTML::style('css/admin/alertify.bootstrap.css'); }}
-        {{ HTML::style('css/admin/bootstrap-switch.min.css'); }}
-        {{ HTML::style('css/admin/bootstrap-tagsinput.css'); }}
-        {{ HTML::style('css/admin/jquery.datetimepicker.css'); }}
-        {{ HTML::style('css/animate.css'); }}
-        {{ HTML::style('css/admin/divide-admin.css'); }}
+        {{ HTML::style('css/divide-admin.min.css'); }}
     </head>
     <body class="skin-black">
     

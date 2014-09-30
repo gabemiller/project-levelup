@@ -14,11 +14,7 @@
 
         {{ HTML::style('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&subset=latin,latin-ext'); }}
         {{ HTML::style('css/bootstrap.min.css'); }}
-        {{ HTML::style('css/font-awesome.min.css'); }}
-        {{ HTML::style('css/blueimp-gallery.css'); }}
-        {{ HTML::style('css/bootstrap-image-gallery.min.css'); }}
-        {{ HTML::style('css/animate.css'); }}
-        {{ HTML::style('css/site/divide.css'); }}
+        {{ HTML::style('css/divide.min.css'); }}
 
     </head>
     <body>
@@ -35,13 +31,15 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
 
-                                    <button type="button" class="collapsed btn-menu hidden-md hidden-lg" data-toggle="collapse" data-target="#navCollapse">
-                                         <i class="fa fa-bars"></i> Menü
-                                    </button>
-                                    <div class="collapse navbar-collapse" id="navCollapse">
-                                        {{$mainMenu->asUl(array('class'=>'list-unstyled nav-menu'))}}
-                                    </div>
+                                    <nav id="mainMenu">
+                                        <button type="button" class="collapsed btn-menu hidden-md hidden-lg" data-toggle="collapse" data-target="#navCollapse">
+                                            <i class="fa fa-bars"></i> Menü
+                                        </button>
 
+                                        <div class="collapse" id="navCollapse">
+                                            {{$mainMenu->asUl(array('class'=>'list-unstyled nav-menu'))}}
+                                        </div>
+                                    </nav>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
                                     @yield('content')
@@ -80,10 +78,7 @@
 
         {{ HTML::script('js/jquery-2.1.1.min.js'); }}
         {{ HTML::script('js/bootstrap.min.js'); }}
-        {{ HTML::script('js/plugins/metisMenu.js'); }}
-        {{ HTML::script('js/plugins/jquery.blueimp-gallery.min.js'); }}
-        {{ HTML::script('js/plugins/bootstrap-image-gallery.js'); }}
-        {{ HTML::script('js/divide.js'); }}
+        {{ HTML::script('js/divide.min.js'); }}
 
 
     </body>
