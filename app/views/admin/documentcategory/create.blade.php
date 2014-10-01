@@ -6,21 +6,47 @@
 </section>
 
 <section class="content">
+    
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            @include('_backend.message')
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
 
             <div class="box box-solid box-divide">
                 <div class="box-header">
                     <h3 class="box-title">Új dokumentum kategória</h3>
                 </div>
                 <div class="box-body">
-
+                    {{Form::open(array('url' => URL::route('admin.dokumentum-kategoria.store',array()),'class'=>'form-horizontal','method'=>'POST'))}}
+                    <div class="form-group">
+                        {{Form::label('parent', 'Szülő kategória',array('class'=>'col-lg-2 control-label'))}}
+                        <div class="col-lg-9">
+                            {{Form::selection('parent', $categories,array('class'=>'form-control'));}} 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {{Form::label('name', 'Név',array('class'=>'col-lg-2 control-label'))}}
+                        <div class="col-lg-9">
+                            {{Form::input('text','name','',array('class'=>'form-control','placeholder'=>'Név'))}}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-9">
+                        {{Form::submit('Mentés',array('class'=>'btn btn-divide btn-sm btn-copy'))}}
+                        </div>
+                    </div>
+                    {{Form::close()}}
                 </div>
             </div>
 
         </div>
 
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-8">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
 
             <div class="box box-solid box-divide">
                 <div class="box-header">
@@ -28,6 +54,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
+                        {{Form::button('Törlés',array('type'=>'button','class'=>'btn btn-danger btn-sm','id'=>'deleteButton'))}}
                         <table class="table-sortable">
                             <thead>
                                 <tr>
@@ -44,6 +71,7 @@
                             </tbody>
                             @include('_backend.table-footer')
                         </table>
+                        {{Form::button('Törlés',array('type'=>'button','class'=>'btn btn-danger btn-sm','id'=>'deleteButton'))}}
                     </div>
                 </div>
             </div>

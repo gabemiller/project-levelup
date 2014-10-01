@@ -28,4 +28,20 @@ class DocumentCategory extends \Eloquent {
         return $this->belongsTo('Divide\CMS\DocumentCategory', 'id', 'parent');
     }
 
+    /**
+     * 
+     * @param type $id
+     * @return type
+     */
+    public static function getCategories($id = 0) {
+
+        $array = array(0 => 'Nincs');
+
+        foreach (DocumentCategory::where('id', '<>', $id)->get(['id', 'name']) as $docCategory) {
+            $array[$docCategory->id] = $docCategory->name;
+        }
+
+        return $array;
+    }
+
 }

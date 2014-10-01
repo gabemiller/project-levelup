@@ -16,7 +16,7 @@ class CreateDocumentcategoryTable extends Migration {
 		{
 			$table->increments('id');
                         $table->integer('parent');
-                        $table->string('name');
+                        $table->string('name')->unique();
 			$table->timestamps();
 		});
 	}
