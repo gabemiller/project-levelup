@@ -105,6 +105,8 @@ Route::group(array('prefix' => 'admin', 'namespace' => 'Admin', 'before' => 'use
     Route::resource('esemeny', 'EventController');
     
     Route::resource('dokumentum', 'DocumentController');
+    
+    Route::resource('dokumentum-kategoria', 'DocumentCategoryController');
 
     Route::resource('galeria', 'GalleryController');
 

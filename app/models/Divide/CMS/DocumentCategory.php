@@ -4,6 +4,8 @@ namespace Divide\CMS;
 
 class DocumentCategory extends \Eloquent {
 
+    protected $table = 'documentcategory';
+
     /**
      *
      * @var type 
