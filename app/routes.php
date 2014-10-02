@@ -38,6 +38,7 @@ Route::get('galeriak/{id}/{title}', ['uses' => 'Site\GalleryController@show', 'a
 Route::get('oldal/{id}/{title}', ['uses' => 'Site\PageController@show', 'as' => 'oldalak.show'])->where('id', '[0-9]+')->where('title', '[0-9A-z_-]+');
 
 Route::get('documentumok', ['uses' => 'Site\DocumentController@index', 'as' => 'dokumentumok.index']);
+Route::post('documentumok', ['uses' => 'Site\DocumentController@index', 'as' => 'dokumentumok.index']);
 
 /**
  * -----------------------------------------------------------------------------
