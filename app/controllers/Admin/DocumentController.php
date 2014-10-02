@@ -3,6 +3,7 @@
 namespace Admin;
 
 use Divide\CMS\Document;
+use Divide\CMS\DocumentCategory;
 use View;
 use Validator;
 use Input;
@@ -37,7 +38,7 @@ class DocumentController extends \BaseController {
     public function create() {
         View::share('title', 'Új dokumentum');
 
-        $this->layout->content = View::make('admin.document.create');
+        $this->layout->content = View::make('admin.document.create')->with('categories',DocumentCategory::getCategories());
     }
 
     /**
@@ -48,6 +49,8 @@ class DocumentController extends \BaseController {
      */
     public function store() {
         try {
+
+            dd(Input::all());
 
             $rules = array(
                 'name' => 'required|unique:document',
@@ -64,6 +67,7 @@ class DocumentController extends \BaseController {
 
             $doc->name = Input::get('name');
             $doc->description = Input::get('description');
+            $doc->categories;
 
             $file = Input::file('file');
 

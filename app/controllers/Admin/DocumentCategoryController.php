@@ -38,7 +38,7 @@ class DocumentCategoryController extends \BaseController {
         try {
 
             $rules = array(
-                'name' => 'required|unique:document'
+                'name' => 'required|unique:documentcategory'
             );
 
             $validation = Validator::make(Input::all(), $rules);
@@ -69,7 +69,7 @@ class DocumentCategoryController extends \BaseController {
 
     /**
      * Display the specified resource.
-     * GET /admin\documentcategory/{id}
+     * GET /admin/documentcategory/{id}
      *
      * @param  int  $id
      * @return Response
@@ -80,24 +80,55 @@ class DocumentCategoryController extends \BaseController {
 
     /**
      * Show the form for editing the specified resource.
-     * GET /admin\documentcategory/{id}/edit
+     * GET /admin/documentcategory/{id}/edit
      *
      * @param  int  $id
      * @return Response
      */
     public function edit($id) {
-        //
+        View::share('title', 'Dokumentum kategória módosítása');
+
+        $this->layout->content = View::make('admin.documentcategory.edit')->with('docCategory', DocumentCategory::find($id))->with('categories', DocumentCategory::getCategories($id));
     }
 
     /**
      * Update the specified resource in storage.
-     * PUT /admin\documentcategory/{id}
+     * PUT /admin/documentcategory/{id}
      *
      * @param  int  $id
      * @return Response
      */
     public function update($id) {
-        //
+        try {
+
+            $rules = array(
+                'name' => 'required|unique:documentcategory,name,' . $id
+            );
+
+            $validation = Validator::make(Input::all(), $rules);
+
+            if ($validation->fails()) {
+                return Redirect::back()->withInput()->withErrors($validation->messages());
+            }
+
+            $docCat = DocumentCategory::findOrFail($id);
+
+            $docCat->name = Input::get('name');
+            $docCat->parent = is_numeric(Input::get('parent')) ? Input::get('parent') : 0;
+
+
+            if ($docCat->save()) {
+                return Redirect::back()->with('message', 'A dokumentum kategória módosítása sikerült!');
+            } else {
+                return Redirect::back()->withInput()->withErrors('A dokumentum kategória módosítása nem sikerült!');
+            }
+        } catch (Exception $e) {
+            if (Config::get('app.debug')) {
+                return Redirect::back()->withInput()->withErrors($e->getMessage());
+            } else {
+                return Redirect::back()->withInput()->withErrors('A dokumentum kategória módosítása nem sikerült!');
+            }
+        }
     }
 
     /**
