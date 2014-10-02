@@ -2,14 +2,41 @@
 
 namespace Divide\CMS;
 
-class Document extends \Eloquent {
+class Document extends \Eloquent
+{
 
-    //protected $fillable = [];
+    /**
+     * @var array
+     */
+    protected $fillable = ['name', 'description', 'path'];
 
+    /**
+     * @var string
+     */
     protected $table = 'document';
 
-    public function categories() {
+    /**
+     * @return mixed
+     */
+    public function categories()
+    {
         return $this->belongsToMany('Divide\CMS\DocumentCategory', 'document_documentcategory', 'document_id', 'documentcategory_id');
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getCategoryIds()
+    {
+        $ids = array();
+
+        foreach ($this->categories as $cat) {
+            $ids[] = $cat->id;
+        }
+
+        return $ids;
+
     }
 
 }
