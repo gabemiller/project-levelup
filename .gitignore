@@ -15,3 +15,4 @@ vendor/symfony/routing/Symfony/Component/Routing/Tests/Fixtures/null_values.xml
 vendor/symfony/security-core/Symfony/Component/Security/Core/Tests/Validator/Constraints/LegacyUserPasswordValidator2Dot4ApiTest.php
 vendor/symfony/security-core/Symfony/Component/Security/Core/Tests/Validator/Constraints/LegacyUserPasswordValidatorLegacyApiTest.php
 vendor/symfony/finder/Symfony/Component/Finder/Tests/Fixtures/r+e.gex[c]a(r)s/dir/bar.dat
+vendor/symfony/finder/Symfony/Component/Finder/Tests/Fixtures/r+e.gex[c]a(r)s/dir/bar.dat
