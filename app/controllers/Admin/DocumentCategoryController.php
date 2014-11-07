@@ -25,7 +25,9 @@ class DocumentCategoryController extends \BaseController {
     public function create() {
         View::share('title', 'Dokumentum kategóriák');
 
-        $this->layout->content = View::make('admin.documentcategory.create')->with('docCategories', DocumentCategory::all())->with('categories', DocumentCategory::getCategories(0,true));
+        $this->layout->content = View::make('admin.documentcategory.create')
+                                        ->with('docCategories', DocumentCategory::all())
+                                        ->with('categories', DocumentCategory::getCategories(0,true));
     }
 
     /**
@@ -50,7 +52,8 @@ class DocumentCategoryController extends \BaseController {
             $docCat = new DocumentCategory();
 
             $docCat->name = Input::get('name');
-            $docCat->parent = is_numeric(Input::get('parent')) ? Input::get('parent') : 0;
+            $docCat->slug = Str::slug(Input::get('name'));
+            $docCat->parent_id = is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : null;
 
 
             if ($docCat->save()) {
@@ -88,7 +91,9 @@ class DocumentCategoryController extends \BaseController {
     public function edit($id) {
         View::share('title', 'Dokumentum kategória módosítása');
 
-        $this->layout->content = View::make('admin.documentcategory.edit')->with('docCategory', DocumentCategory::find($id))->with('categories', DocumentCategory::getCategories($id));
+        $this->layout->content = View::make('admin.documentcategory.edit')
+            ->with('docCategory', DocumentCategory::find($id))
+            ->with('categories', DocumentCategory::getCategories($id));
     }
 
     /**
@@ -114,7 +119,8 @@ class DocumentCategoryController extends \BaseController {
             $docCat = DocumentCategory::findOrFail($id);
 
             $docCat->name = Input::get('name');
-            $docCat->parent = is_numeric(Input::get('parent')) ? Input::get('parent') : 0;
+            $docCat->slug = Str::slug(Input::get('name'));
+            $docCat->parent_id = is_numeric(Input::get('parent_id')) ? Input::get('parent_id') : null;
 
 
             if ($docCat->save()) {

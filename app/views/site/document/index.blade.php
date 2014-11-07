@@ -1,42 +1,46 @@
 @extend('_frontend.master')
+@section('page-title')
+<h1>Letölthető dokumentumok</h1>
+@stop
+
 @section('breadcrumb')
 {{-- HTML::decode(Breadcrumbs::render('')) --}}
 @stop
+
+@section('sidebar')
+<h3>Kategóriák</h3>
+<ul class="list-unstyled list-category">
+    <li>{{HTML::linkRoute('dokumentumok.index','Összes kategória')}}</li>
+    @foreach($categories as $category)
+    <li>{{HTML::linkRoute('dokumentumok.index',$category->name.' ('.$category->documents->count().')',array('slug'=>$category->slug))}}
+    </li>
+    @endforeach
+</ul>
+@stop
+
 @section('content')
 <div class="documents">
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            {{Form::open(array('url' => URL::route('dokumentumok.index',array()),'class'=>'form-inline','method'=>'POST'))}}
-            <div class="form-group">
-                    {{Form::label('category', 'Kategória:',array())}}
-                    {{Form::selection('category', $categories,array('class'=>'form-control'),$catId)}}
-            </div>
-            {{Form::submit('Szűrés',array('class'=>'btn btn-default'))}}
-            {{Form::close()}}
-        </div>
-    </div>
     <div class="table-responsive">
-        <table class="table table-striped table-middle">
-            <thead>
-                <tr>
-                    <th colspan="2">
-                        Letölthető dokumentumok
-                    </th>
-                </tr>
-            </thead>
+        <table class="table table-middle">
             <tbody>
-                @foreach($documents as $doc)
-                <tr>
-                    <td>
-                        <h4>{{$doc->name}}</h4>
-                        <p>{{$doc->description}}</p>
-                    </td>
-                    <td>
-                        {{HTML::decode(HTML::link($doc->path,'Letöltés',array('class'=>'btn btn-small btn-tardona-yellow','target'=>'_blank')))}}
-                    </td>
-                </tr>
-                @endforeach
+            @foreach($documents as $doc)
+            <tr>
+                <td>
+                    <h3>{{$doc->name}}</h3>
+                    <p>{{$doc->description}}</p>
+                    <p>
+                        @foreach($doc->categories as $category)
+                        <span class="label label-primary">{{$category->name}}</span>
+                        @endforeach
+                    </p>
+                </td>
+                <td class="table-col-xs">
+                    {{HTML::decode(HTML::link($doc->path,'Letöltés',array('class'=>'btn btn-small
+                    btn-default','target'=>'_blank')))}}
+                </td>
+            </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

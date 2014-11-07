@@ -12,6 +12,7 @@
             <div class="box box-solid">
                 <div class="box-body">
                     {{HTML::link('admin/dokumentum/create','Új dokumentum',array('class'=>'btn btn-divide btn-sm'))}}
+                    {{HTML::link('admin/dokumentum-kategoria/create','Új dokumentum kategória',array('class'=>'btn btn-divide btn-sm'))}}
                     {{Form::button('Törlés',array('type'=>'button','class'=>'btn btn-danger btn-sm','id'=>'deleteButton'))}}
                 </div>
             </div>
@@ -26,7 +27,7 @@
                             <thead>
                                 <tr>
                                     <th class="table-col-xs sorter-false filter-false"><input type="checkbox" id="checkAll"></th>
-                                    <th class="table-col-xs">Id</th>
+                                    <th class="table-col-xs">Az</th>
                                     <th>Név</th>
                                     <th>Fájl</th>
                                     <th>Kategória</th>

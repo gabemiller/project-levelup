@@ -7,23 +7,34 @@ class CreateDocumentcategoryTable extends Migration
 {
 
     /**
-     * Run the migrations.
+     * Létrehozza a documentcategory táblát.
      *
      * @return void
      */
     public function up()
     {
         Schema::create('documentcategory', function (Blueprint $table) {
+            // Azonosító
             $table->increments('id');
-            $table->integer('parent');
-            $table->string('name')->unique();
+            // Szülő azonosító
+            $table->integer('parent_id');
+            // Kategória név
+            $table->string('name');
+            // Kategória ékezetes és egyéb speciális karakter nélküli neve
+            $table->string('slug');
+            // Létrehozva
+            // Frissítve
             $table->timestamps();
+
+            // Unique, Index
+            $table->unique(['name']);
+            $table->index(['parent_id']);
         });
     }
 
 
     /**
-     * Reverse the migrations.
+     * Eldobja a documentcategory táblát.
      *
      * @return void
      */

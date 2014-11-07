@@ -25,7 +25,8 @@ class EventController extends \BaseController {
     public function index() {
         View::share('title', 'Oldalak');
 
-        $this->layout->content = View::make('admin.event.index')->with('events', Event::all(['id','title','start','end']));
+        $this->layout->content = View::make('admin.event.index')
+            ->with('events', Event::all(['id','title','start_at','end_at']));
     }
 
     /**
@@ -37,7 +38,8 @@ class EventController extends \BaseController {
     public function create() {
         View::share('title', 'Oldalak');
 
-        $this->layout->content = View::make('admin.event.create')->with('galleries', Gallery::getGalleries());
+        $this->layout->content = View::make('admin.event.create')
+            ->with('galleries', Gallery::getGalleries());
     }
 
     /**
@@ -53,8 +55,8 @@ class EventController extends \BaseController {
             $rules = array(
                 'title' => 'required|unique:events',
                 'content' => 'required',
-                'start' => 'required',
-                'end' => 'required',
+                'start_at' => 'required',
+                'end_at' => 'required',
             );
 
             $validation = Validator::make(Input::all(), $rules);
@@ -68,10 +70,10 @@ class EventController extends \BaseController {
 
             $event->title = Input::get('title');
             $event->content = Input::get('content');
-            $event->start = Input::get('start');
-            $event->end = Input::get('end');
-            $event->shows = Input::get('shows') ? true : false;
-            $event->gallery_id = is_numeric(Input::get('gallery')) ? Input::get('gallery') : 0;
+            $event->start_at = Input::get('start_at');
+            $event->end_at = Input::get('end_at');
+            $event->published = Input::get('published') ? true : false;
+            $event->gallery_id = intval(Input::get('gallery_id')) > 0 ? Input::get('gallery_id') : null;
 
             if ($event->save()) {
 				if(Input::get('tags')){
@@ -113,7 +115,8 @@ class EventController extends \BaseController {
     public function edit($id) {
         View::share('title', 'Oldalak');
 
-        $this->layout->content = View::make('admin.event.edit')->with('event', Event::find($id))->with('galleries', Gallery::getGalleries());
+        $this->layout->content = View::make('admin.event.edit')
+            ->with('event', Event::find($id))->with('galleries', Gallery::getGalleries());
     }
 
     /**
@@ -130,8 +133,8 @@ class EventController extends \BaseController {
             $rules = array(
                 'title' => 'required|unique:events,title,' . $id,
                 'content' => 'required',
-                'start' => 'required',
-                'end' => 'required',
+                'start_at' => 'required',
+                'end_at' => 'required',
             );
 
             $validation = Validator::make(Input::all(), $rules);
@@ -145,11 +148,11 @@ class EventController extends \BaseController {
 
             $event->title = Input::get('title');
             $event->content = Input::get('content');
-            $event->start = Input::get('start');
-            $event->end = Input::get('end');
-            $event->shows = Input::get('shows') ? true : false;
-            $event->gallery_id = is_numeric(Input::get('gallery')) ? Input::get('gallery') : 0;
-            $article->retag(explode(',',Input::get('tags')));
+            $event->start_at = Input::get('start_at');
+            $event->end_at = Input::get('end_at');
+            $event->published = Input::get('published') ? true : false;
+            $event->gallery_id = intval(Input::get('gallery_id')) > 0 ? Input::get('gallery_id') : null;
+            $event->retag(explode(',',Input::get('tags')));
 
             if ($event->save()) {
                 return Redirect::back()->with('message', 'Az esemény módosítása sikerült!');

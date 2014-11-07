@@ -12,6 +12,7 @@ use Validator;
 use Config;
 use Image;
 use File;
+use Sentry;
 
 class UsersController extends \BaseController {
 
@@ -24,7 +25,8 @@ class UsersController extends \BaseController {
      */
     public function index() {
         View::share('title', 'Felhasználók');
-        $this->layout->content = View::make('admin.users.index')->with('users', User::all(['id','first_name','last_name','created_at','last_login','email','phone']));
+        $this->layout->content = View::make('admin.users.index')
+            ->with('users', User::all(['id','first_name','last_name','created_at','last_login','email','phone']));
     }
 
     /**
@@ -64,7 +66,7 @@ class UsersController extends \BaseController {
             $user->email = Input::get('email');
             $user->phone = Input::get('phone');
             $user->password = '12345';
-            $user->activated = 1;
+            $user->activated = true;
 
             if ($user->save()) {
                 $group = \Sentry::getGroupProvider()->findByName('Admin');
@@ -198,7 +200,7 @@ class UsersController extends \BaseController {
                 'password' => Input::get('password'),
             );
 
-            $user = \Sentry::authenticate($credentials, false);
+            $user = Sentry::authenticate($credentials, false);
 
             return Redirect::route('admin.vezerlopult');
         } catch (\Cartalyst\Sentry\Users\LoginRequiredException $e) {
@@ -224,7 +226,7 @@ class UsersController extends \BaseController {
      * @return Response
      */
     public function getLogout() {
-        \Sentry::logout();
+        Sentry::logout();
         return Redirect::route('admin.bejelentkezes');
     }
 
@@ -323,11 +325,11 @@ class UsersController extends \BaseController {
             $thumbPath = $path . '/thumb';
 
             if (!File::exists(public_path() . $path)) {
-                File::makeDirectory(public_path() . $path, 777, true);
+                File::makeDirectory(public_path() . $path, 0777, true);
             }
 
             if (!File::exists(public_path() . $thumbPath)) {
-                File::makeDirectory(public_path() . $thumbPath, 777, true);
+                File::makeDirectory(public_path() . $thumbPath, 0777, true);
             }
 
             $extension = Input::file('picture')->getClientOriginalExtension();

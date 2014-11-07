@@ -1,85 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <head prefix="og: http://ogp.me/ns#">
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
 
 
-        <link href="/assets/favicon.ico" rel="icon" type="image/x-icon" />
-        <title>{{Config::get('globals.title');}} - {{$title or ''}}</title>
+    <link href="/assets/favicon.ico" rel="icon" type="image/x-icon"/>
+    <title>{{Setting::get('site-title')}} @if(!empty($title)) {{'- '.$title }} @endif</title>
 
-        <!--[if lt IE 9]>
-            {{ HTML::script('//html5shim.googlecode.com/svn/trunk/html5.js'); }}
-        <![endif]-->
+    <!--[if lt IE 9]>
+    {{ HTML::script('//html5shim.googlecode.com/svn/trunk/html5.js'); }}
+    <![endif]-->
 
-        {{ HTML::style('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&subset=latin,latin-ext'); }}
-        {{ HTML::style('css/bootstrap.min.css'); }}
-        {{ HTML::style('css/divide.min.css'); }}
+    {{ HTML::style('http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic&subset=latin,latin-ext'); }}
+    {{
+    HTML::style('http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,latin-ext');
+    }}
+    {{ HTML::style('css/bootstrap.min.css'); }}
+    {{ HTML::style('css/divide.min.css'); }}
 
-    </head>
-    <body>
-        <div id="fb-root"></div>
+</head>
+<body>
+<div id="fb-root"></div>
 
-        @include('_frontend.lightbox')
-        @include('_frontend.header')
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
-                    <div class="panel">
-                        <div class="panel-body">
-
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-
-                                    <nav id="mainMenu">
-                                        <button type="button" class="collapsed btn-menu hidden-md hidden-lg" data-toggle="collapse" data-target="#navCollapse">
-                                            <i class="fa fa-bars"></i> Menü
-                                        </button>
-
-                                        <div class="collapse" id="navCollapse">
-                                            {{$mainMenu->asUl(array('class'=>'list-unstyled nav-menu'))}}
-                                        </div>
-                                    </nav>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
-                                    @yield('content')
-                                </div>
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div><!--/col-12-->
-            </div>
+@include('_frontend.lightbox')
+@include('_frontend.header')
+<div class="container main-container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            @yield('breadcrumb')
         </div>
-        @include('_frontend.footer')
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            @yield('sidebar')
+            <h4>Kövessen Facebookon!</h4>
+            <div class="fb-like-box" data-href="https://www.facebook.com/szentmiklosgorkatovodaesbolcsode" data-colorscheme="light"
+                 data-show-faces="true" data-header="false" data-show-border="false" data-width="292"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+            @yield('content')
+        </div>
+    </div>
+</div>
+@include('_frontend.footer')
 
 
-        <script>
-            window.fbAsyncInit = function() {
-                FB.init({
-                    appId: '300832236763668',
-                    xfbml: true,
-                    version: 'v2.0'
-                });
-            };
-
-            (function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) {
-                    return;
-                }
-                js = d.createElement(s);
-                js.id = id;
-                js.src = "//connect.facebook.net/hu_HU/sdk.js";
-                fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-        </script>
-
-        {{ HTML::script('js/jquery-2.1.1.min.js'); }}
-        {{ HTML::script('js/bootstrap.min.js'); }}
-        {{ HTML::script('js/divide.min.js'); }}
+{{ HTML::script('js/jquery-2.1.1.min.js'); }}
+{{ HTML::script('js/bootstrap.min.js'); }}
+{{ HTML::script('js/divide.min.js'); }}
 
 
-    </body>
+<script>(function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/hu_HU/sdk.js#xfbml=1&appId=567582800013985&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+
+</body>
 </html>

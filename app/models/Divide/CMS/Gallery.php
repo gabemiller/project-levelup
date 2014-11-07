@@ -4,6 +4,11 @@ namespace Divide\CMS;
 
 use Str;
 
+/**
+ * Divide\CMS\Gallery
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Divide\CMS\Picture[] $pictures
+ */
 class Gallery extends \Eloquent {
 
     protected $fillable = ['name'];
@@ -66,6 +71,24 @@ class Gallery extends \Eloquent {
         } else {
             return false;
         }
+    }
+
+    /**
+     * @param string $format
+     * @return string
+     */
+    public function getCreatedAt($format = 'Y. F j., l H:i')
+    {
+        return (new Date($this->created_at))->format($format);
+    }
+
+    /**
+     * @param string $format
+     * @return string
+     */
+    public function getUpdatedAt($format = 'Y. F j., l H:i')
+    {
+        return (new Date($this->updated_at))->format($format);
     }
 
 }

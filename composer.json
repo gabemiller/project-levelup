@@ -10,11 +10,14 @@
         "cartalyst/sentry": "2.1.*",
         "intervention/image": "2.*",
         "lavary/laravel-menu": "dev-master",
-        "ryannielson/meta": "1.1.*"
+        "ryannielson/meta": "1.1.*",
+        "philf/setting": "dev-master",
+        "jenssegers/date": "*"
     },
     "require-dev": {
         "itsgoingd/clockwork": "dev-master",
-        "way/generators": "2.*"
+        "way/generators": "2.*",
+        "barryvdh/laravel-ide-helper": "1.*"
     },
     "autoload": {
         "classmap": [
@@ -33,6 +36,7 @@
         ],
         "post-update-cmd": [
             "php artisan clear-compiled",
+            "php artisan ide-helper:generate",
             "php artisan optimize"
         ],
         "post-create-project-cmd": [

@@ -24,7 +24,7 @@ class PageController extends \BaseController {
     public function index() {
         View::share('title', 'Oldalak');
 
-        $this->layout->content = View::make('admin.page.index')->with('pages', Page::all(['id','parent','menu','title']));
+        $this->layout->content = View::make('admin.page.index')->with('pages', Page::all(['id','title']));
     }
 
     /**
@@ -36,7 +36,7 @@ class PageController extends \BaseController {
 
         View::share('title', 'Oldal létrehozás');
 
-        $this->layout->content = View::make('admin.page.create')->with('galleries', Gallery::getGalleries())->with('pages', Page::getPages());
+        $this->layout->content = View::make('admin.page.create')->with('galleries', Gallery::getGalleries());
     }
 
     /**
@@ -49,7 +49,6 @@ class PageController extends \BaseController {
 
             $rules = array(
                 'title' => 'required|unique:pages',
-                'menu' => 'required|unique:pages',
                 'content' => 'required'
             );
 
@@ -62,10 +61,9 @@ class PageController extends \BaseController {
             $page = new Page();
 
             $page->title = Input::get('title');
-            $page->menu = Input::get('menu');
-            $page->parent = Input::get('parent');
             $page->content = Input::get('content');
-            $page->gallery_id = is_numeric(Input::get('gallery')) ? Input::get('gallery') : 0;
+            $page->gallery_id = intval(Input::get('gallery_id')) > 0 ? Input::get('gallery_id') : null;
+            $page->published = Input::get('published') ? true : false;
 
             if ($page->save()) {
                 return Redirect::back()->with('message', 'Az oldal létrehozása sikerült!');
@@ -103,7 +101,7 @@ class PageController extends \BaseController {
     public function edit($id) {
         $page = Page::find($id);
         View::share('title', 'Oldal: ' . $page->title);
-        $this->layout->content = View::make('admin.page.edit')->with('page', $page)->with('galleries', Gallery::getGalleries())->with('pages', Page::getPages($id));
+        $this->layout->content = View::make('admin.page.edit')->with('page', $page)->with('galleries', Gallery::getGalleries());
     }
 
     /**
@@ -118,7 +116,6 @@ class PageController extends \BaseController {
 
             $rules = array(
                 'title' => 'required|unique:pages,title,' . $id,
-                'menu' => 'required|unique:pages,menu,' . $id,
                 'content' => 'required'
             );
 
@@ -131,10 +128,9 @@ class PageController extends \BaseController {
             $page = Page::find($id);
 
             $page->title = Input::get('title');
-            $page->menu = Input::get('menu');
-            $page->parent = Input::get('parent');
             $page->content = Input::get('content');
-            $page->gallery_id = is_numeric(Input::get('gallery')) ? Input::get('gallery') : 0;
+            $page->gallery_id = intval(Input::get('gallery_id')) > 0 ? Input::get('gallery_id') : null;
+            $page->published = Input::get('published') ? true : false;
 
             if ($page->save()) {
                 return Redirect::back()->with('message', 'Az oldal módosítása sikerült!');
@@ -161,7 +157,6 @@ class PageController extends \BaseController {
         try {
 
             $page = Page::find($id);
-
 
             if ($page->delete()) {
                 return Response::json(['message' => 'A(z) ' . $id . ' azonosítójú oldal törlése sikerült!', 'status' => true]);

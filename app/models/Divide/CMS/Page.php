@@ -4,6 +4,11 @@ namespace Divide\CMS;
 
 use Str;
 
+/**
+ * Divide\CMS\Page
+ *
+ * @property-read \Divide\CMS\Gallery $gallery
+ */
 class Page extends \Eloquent {
 
 //protected $fillable = [];
@@ -64,14 +69,35 @@ class Page extends \Eloquent {
     }
 
     /**
-     * 
+     * @return array
      */
-    public function hasChildren() {
-        if (Page::where('parent', '=', $this->id)->count() > 0) {
-            return true;
-        } else {
-            return false;
+    public static function getArray()
+    {
+        $arr = array();
+
+        foreach (static::all(['id', 'title']) as $item) {
+            $arr[$item->id] = $item->title;
         }
+
+        return $arr;
+    }
+
+    /**
+     * @param string $format
+     * @return string
+     */
+    public function getCreatedAt($format = 'Y. F j., l H:i')
+    {
+        return (new Date($this->created_at))->format($format);
+    }
+
+    /**
+     * @param string $format
+     * @return string
+     */
+    public function getUpdatedAt($format = 'Y. F j., l H:i')
+    {
+        return (new Date($this->updated_at))->format($format);
     }
 
 }

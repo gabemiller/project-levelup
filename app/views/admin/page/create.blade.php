@@ -6,11 +6,16 @@
 </section>
 
 <section class="content">
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            @include('_backend.message')
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-xs-12">
             
-            @include('_backend.message')
-
             {{Form::open(array('url' => URL::route('admin.oldal.store'),'class'=>'form-horizontal','method'=>'POST'))}}
             <div class="box box-solid">
                 <div class="box-body">
@@ -25,18 +30,6 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group">
-                        {{Form::label('parent', 'Szülő menüpont',array('class'=>'col-lg-2 control-label'))}}
-                        <div class="col-lg-2">
-                            {{Form::selection('parent', $pages,array('class'=>'form-control'));}} 
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{Form::label('menu', 'Menüpont',array('class'=>'col-lg-2 control-label'))}}
-                        <div class="col-lg-9">
-                            {{Form::input('text','menu','',array('class'=>'form-control','Placeholder'=>'Menüpont'))}}
-                        </div>
-                    </div>
-                    <div class="form-group">
                         {{Form::label('title', 'Cím',array('class'=>'col-lg-2 control-label'))}}
                         <div class="col-lg-9">
                             {{Form::input('text','title','',array('class'=>'form-control','Placeholder'=>'Cím'))}}
@@ -49,10 +42,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        {{Form::label('gallery', 'Hozzárendelt galéria',array('class'=>'col-lg-2 control-label'))}}
+                        {{Form::label('gallery_id', 'Hozzárendelt galéria',array('class'=>'col-lg-2 control-label'))}}
                         <div class="col-lg-2">
-                            {{Form::selection('gallery', $galleries,array('class'=>'form-control'));}} 
+                            {{Form::select('gallery_id', $galleries,null,array('class'=>'form-control'));}}
                         </div>
+                    </div>
+                    <div class="form-group">
+                          {{Form::label('published', 'Megjelenjen a főoldalon?',array('class'=>'col-lg-2 control-label'))}}
+                          <div class="col-lg-9">
+                            {{Form::checkbox('published', 'true',false,array('class'=>'btn-switch'))}}
+                          </div>
                     </div>
                 </div>
             </div>

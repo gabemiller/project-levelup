@@ -1,7 +1,5 @@
 <?php namespace Lavary\Menu;
 
-use Illuminate\Support\Collection as Collection;
-
 class Builder {
 	
 	/**
@@ -462,7 +460,6 @@ class Builder {
 		if( is_callable($callback) ) {
 	
 			$this->items = $this->items->filter($callback);
-	
 		}
 
 		return $this;
@@ -625,6 +622,41 @@ class Builder {
 	}
 
 	/**
+	 * Filter items recursively
+	 *
+	 * @param string $attribute
+	 * @param mixed  $value
+	 *
+	 * @return Lavary\Menu\Collection
+	 */
+	public function filterRecursive($attribute, $value){
+
+		$collection = new Collection;
+		
+		// Iterate over all the items in the main collection
+		$this->items->each( function ($item) use ($attribute, $value, &$collection) {
+			
+			if ( !property_exists($item, $attribute) )
+			{
+				return false;
+			}
+			if( $item->$attribute == $value ) {
+				
+				$collection->push($item);
+				
+				// Check if item has any children
+				if( $item->hasChildren() ) {
+					
+					$collection = $collection->merge( $this->filterRecursive($attribute, $item->id) );
+				}
+			}
+
+		});
+
+		return $collection;
+	}
+
+	/**
 	 * Search the menu based on an attribute
 	 *
 	 * @param string $method
@@ -643,7 +675,12 @@ class Builder {
 		}
 
 		$value     = $args ? $args[0] : null;
+		$recursive = isset($args[1]) ? $args[1] : false;
 		
+		if( $recursive ) {
+			return $this->filterRecursive($attribute, $value);
+		} 
+
 		return $this->items->filter(function($item) use ($attribute, $value) {
 
 			if ( !property_exists($item, $attribute) )
